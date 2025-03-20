@@ -4,9 +4,9 @@ public class Product {
     private String ProductDescription;
     private double ProductPrice;
     private int ProductQuantity;
-    private String ProductStatus;
+    private char ProductStatus;
     private int SupplierID;
-    public Product(int ProductID, String ProductName, String ProductDescription, double ProductPrice, int ProductQuantity, String ProductStatus, int SupplierID) {
+    public Product(int ProductID, String ProductName, String ProductDescription, double ProductPrice, int ProductQuantity, char ProductStatus, int SupplierID) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.ProductDescription = ProductDescription;
@@ -14,6 +14,25 @@ public class Product {
         this.ProductQuantity = ProductQuantity;
         this.ProductStatus = ProductStatus;
         this.SupplierID = SupplierID;
+    }
+    public boolean validate() throws Exception {
+        if (this.ProductID <= 0) {
+           throw new Exception("Product ID must be a positive number");
+        } else if (this.ProductName != null && !this.ProductName.trim().isEmpty()) {
+           if (this.ProductPrice <= 0.0) {
+              throw new Exception("Product price must be positive");
+           } else if (this.ProductQuantity < 0) {
+              throw new Exception("Product quantity cannot be negative");
+           } else if (this.ProductStatus != 'A' && this.ProductStatus != 'B' && this.ProductStatus != 'C') {
+              throw new Exception("Product quality must be A, B, or C");
+           } else if (this.SupplierID <= 0) {
+              throw new Exception("Supplier ID must be a positive number");
+           } else {
+              return true;
+           }
+        } else {
+           throw new Exception("Product type cannot be empty");
+        }
     }
 
     public int getProductID() {
@@ -40,7 +59,7 @@ public class Product {
         return ProductName;
     }
 
-    public String getProductStatus() {
+    public char getProductStatus() {
         return ProductStatus;
     }
 
@@ -64,7 +83,7 @@ public class Product {
         ProductQuantity = productQuantity;
     }
 
-    public void setProductStatus(String productStatus) {
+    public void setProductStatus(char productStatus) {
         ProductStatus = productStatus;
     }
 

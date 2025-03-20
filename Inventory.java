@@ -3,9 +3,9 @@ public class Inventory {
     private String Productname;
     private int Quantity;
     private double Price;
-    private String Status;
+    private char Status;
     private String Suppliername;
-    public Inventory(int Id,String Productname,int Quantity,double Price,String Status,String Suppliername) {
+    public Inventory(int Id,String Productname,int Quantity,double Price,char Status,String Suppliername) {
         this.ProductID = Id;
         this.Productname = Productname;
         this.Quantity = Quantity;
@@ -18,7 +18,7 @@ public class Inventory {
         this.Productname = "";
         this.Quantity = 0;
         this.Price = 0.0;
-        this.Status = "";
+        this.Status = '\0';
         this.Suppliername = "";
     }
 
@@ -38,7 +38,7 @@ public class Inventory {
         Quantity = quantity;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(char status) {
         Status = status;
     }
 
@@ -62,7 +62,7 @@ public class Inventory {
         return Productname;
     }
 
-    public String getStatus() {
+    public char getStatus() {
         return Status;
     }
 

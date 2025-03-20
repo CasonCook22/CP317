@@ -18,6 +18,28 @@ public class Supplier {
         this.phone = "";
         this.email = "";
     }
+    public boolean validate() throws Exception {
+        // Validate supplier data
+        if (supplierid <= 0) {
+            throw new Exception("Supplier ID must be a positive number");
+        }
+        
+        if (supplierName == null || supplierName.trim().isEmpty()) {
+            throw new Exception("Supplier name cannot be empty");
+        }
+        
+        // Validate email format
+        if (email == null || !email.contains("@") || !email.contains(".")) {        
+            throw new Exception("Invalid email format: " + email);
+        }
+        
+        // Validate phone format (allowing various formats)
+        if (phone == null || !phone.matches("^[0-9\\-\\+\\.\\s\\(\\)]+$")) {
+            throw new Exception("Invalid phone format: " + phone);
+        }
+        
+        return true;
+    }
 
     public void setSupplierid(int supplierid) {
         this.supplierid = supplierid;
