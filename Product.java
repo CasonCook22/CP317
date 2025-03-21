@@ -1,4 +1,4 @@
-public class Product {
+public class Product implements Validatable {
     private int ProductID;
     private String ProductName;
     private String ProductDescription;
@@ -15,6 +15,7 @@ public class Product {
         this.ProductStatus = ProductStatus;
         this.SupplierID = SupplierID;
     }
+    @Override
     public boolean validate() throws Exception {
         if (this.ProductID <= 0) {
            throw new Exception("Product ID must be a positive number");

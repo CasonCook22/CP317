@@ -1,20 +1,24 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
+/**
+ * Fileio class to read and write data to and from text files
+ */
 public class Fileio {
-    /*
-    public static void Writefile (String fname,Inventory[]Inventory) throws Exception{
-        PrintWriter outputFile;
-        FileOutputStream fileHandle = new FileOutputStream(fname);//file named student2 is created
-        outputFile = new PrintWriter(fileHandle);
-        for (int i = 0; i < Inventory.length;i++){
-            outputFile.print(Inventory[i]);//prints array to file
-        }
-        outputFile.close();
+    /**
+     * Validates a Validatable object
+     * @param item The object to validate
+     * @throws Exception if the object is invalid
+     */
+    private static void validateItem(Validatable item) throws Exception {
+        item.validate();
     }
-
+    /**
+     * Reads supplier data from txt file
+     * @param Supplierfname The name of the file to read
+     * @param SupplierList List of suppliers to add to
+     * @return Inventory object containing supplier data
+     * @throws Exception if file cannot be read
      */
     public static void ReadSupplier(String Supplierfname,ArrayList<Supplier> SupplierList) throws Exception{
         if (!Supplierfname.toLowerCase().endsWith(".txt")) {
@@ -40,7 +44,7 @@ public class Fileio {
                     Supplier NewSupplier = new Supplier(Integer.parseInt(input[0]),input[1],input[2],input[3],input[4]);// uses array to make supplier obj
                     // Validate supplier data
                     try {
-                        NewSupplier.validate();
+                        validateItem(NewSupplier);
                         SupplierList.add(NewSupplier);
                     } catch (Exception e) {
                         System.out.println("Warning: Skipping line. Invalid supplier data at line " + lineNumber + ": " + e.getMessage());
@@ -59,7 +63,12 @@ public class Fileio {
     }
 
 
-
+    /**
+     * Reads product data from txt file
+     * @param Productfname the name of product file to read
+     * @param ProductsList List of produts to add to
+     * @throws Exception if file there is an error reading file
+     */
     public static void ReadProduct(String Productfname,ArrayList<Product> ProductsList) throws Exception{
         if (!Productfname.toLowerCase().endsWith(".txt")) {
             throw new Exception("Unsupported file type. Must be a text file (.txt).");
@@ -96,7 +105,7 @@ public class Fileio {
                 Product NewProduct = new Product(ID,name,Description,Price,Quantity,Status,SupplierID);
                 // Validate product data
                 try {
-                    NewProduct.validate();
+                    validateItem(NewProduct);
                 } catch (Exception e) {
                     System.out.println("Warning: Skipping line. Invalid product data at line " + lineNumber + ": " + e.getMessage());
                     continue;
@@ -110,7 +119,13 @@ public class Fileio {
             System.out.println("Error - Opps" + e.toString());
         }
     }
-    public static ArrayList<Inventory> ConvertToInventory(ArrayList<Supplier> SupplierList,ArrayList<Product> ProductsList) throws Exception{
+
+    /*
+     * @param SupplierList List of suppliers to convert to inventory
+     * @param ProductsList List of products to convert to inventory
+     * @return Inventory List containing Invetory data
+     */
+    public static ArrayList<Inventory> ConvertToInventory(ArrayList<Supplier> SupplierList,ArrayList<Product> ProductsList){
         ArrayList<Inventory> InventoryList = new ArrayList<>();
         for (int i = 0; i < ProductsList.size(); i++) {
             Inventory NewInventory = new Inventory();
@@ -146,7 +161,7 @@ public class Fileio {
     /**
      * Writes the inventory data to a text file in the required format
      * @param filename The name of the file to write
-     * @param inventory ArrayList of The inventory containing products and suppliers information
+     * @param inventory ArrayList of The inventory containing individual products product and supplier information
      * @throws Exception If there is an error writing the file
      */
     public static void writeInventoryFile(String filename, ArrayList<Inventory> Inventory) throws Exception {

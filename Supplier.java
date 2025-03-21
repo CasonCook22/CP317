@@ -1,4 +1,4 @@
-public class Supplier {
+public class Supplier implements Validatable {
     private String supplierName;
     private int supplierid;
     private String address;
@@ -18,6 +18,7 @@ public class Supplier {
         this.phone = "";
         this.email = "";
     }
+    @Override
     public boolean validate() throws Exception {
         // Validate supplier data
         if (supplierid <= 0) {
